@@ -1,0 +1,39 @@
+﻿@model LI.Contracting.EntityDTO.AdvisorDTO
+
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+        <input asp-for="AdvisorId" type="hidden" class="form-control" />
+    </div>
+    <div class="form-group col-md-6">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label asp-for="PhoneNumber" class="control-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-6">
+        <label asp-for="HealthStatus" class="control-label"></label>
+        <input asp-for="HealthStatus" class="form-control" />
+        <span asp-validation-for="HealthStatus" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-12">
+        <label asp-for="Address" class="control-label"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+</div>
+
+
+
+

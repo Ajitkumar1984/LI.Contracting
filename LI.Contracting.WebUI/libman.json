@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "datatable@2.0.1",
+      "destination": "wwwroot/lib/datatable/"
+    },
+    {
+      "library": "datatables.net-bs@1.10.22",
+      "destination": "wwwroot/lib/datatables/",
+      "files": [
+        "dataTables.bootstrap.min.js",
+        "dataTables.bootstrap.css",
+        "dataTables.bootstrap.js",
+        "dataTables.bootstrap.min.css"
+      ]
+    },
+    {
+      "library": "jquery@3.5.1",
+      "destination": "wwwroot/lib/jquery/dist/"
+    },
+    {
+      "library": "datatables@1.10.21",
+      "destination": "wwwroot/lib/datatables/"
+    },
+    {
+      "library": "jqueryui@1.12.1",
+      "destination": "wwwroot/lib/jquery/dist/jqueryui/"
+    },
+    {
+      "library": "jquery@1.12.0",
+      "destination": "wwwroot/lib/jquery/"
+    }
+  ]
+}

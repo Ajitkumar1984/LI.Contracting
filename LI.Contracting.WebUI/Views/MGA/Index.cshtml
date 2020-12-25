@@ -1,0 +1,91 @@
+﻿@model LI.Contracting.EntityDTO.MGADTO
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <form method="post" id="mgaform">
+        <div class="container" id="mga">
+            <fieldset class="border p-2">
+                <legend class="w-auto">Manage MGA</legend>
+                <div id="pview">
+
+                </div>
+                <div class="" id="editmode">
+                    <input type="button" id="update" value="Save" onclick="saveForm()" class="btn btn-primary" />
+                    <input type="button" id="addnew" value="Add New" onclick="createmga()" class="btn btn-primary" />
+
+                </div>
+                <div class="" id="addmode">
+                    <input type="button" id="save" value="Save" onclick="saveForm()" class="btn btn-primary" />
+                    <input type="button" id="reset" value="Reset" onclick="createmga()" class="btn btn-primary" />
+
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </fieldset>
+        </div>
+    </form>
+    <div class="container" id="mgagrid">
+
+    </div>
+</div>
+
+<script>
+
+    function saveForm() {
+        var form = $("#mgaform");
+        form.removeData('validator');
+        form.removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse(form);
+
+        if (form.valid()) {
+            $.ajax({
+                type: "POST",
+                url: "/MGA/SaveForm",
+                data: form.serialize(),
+                success: function (msg) {
+                    loadGrid();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("some error occured while saving data");
+                }
+            });
+        }
+        evt.preventDefault();
+    }
+    function createmga() {
+        $("#pview").load("/MGA/Create");
+        $("#addmode").show();
+        $("#editmode").hide();
+    }
+    function editmga(mgaid) {
+        $("#pview").load("/MGA/Edit/" + mgaid);
+        $("#editmode").show();
+        $("#addmode").hide();
+    }
+
+    function deletemga(mgaid) {
+        $.ajax({
+            type: "POST",
+            url: "/MGA/Delete/" + mgaid,
+            success: function (msg) {
+                createmga();
+                loadGrid();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("some error occured while deleting data");
+            }
+        });
+
+    }
+    function loadGrid() {
+        $("#mgagrid").load("/MGA/Grid")
+    }
+
+    $(document).ready(function () {
+        createmga();
+        loadGrid();
+    });
+</script>
+

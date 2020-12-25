@@ -1,0 +1,93 @@
+﻿@model LI.Contracting.EntityDTO.AdvisorDTO
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <form method="post" id="advisorform">
+
+        <div class="container" id="mga">
+            <fieldset class="border p-2">
+                <legend class="w-auto">Manage Advisor</legend>
+                <div id="pview">
+
+                </div>
+                <div class="" id="editmode">
+                    <input type="button" id="update" value="Save" onclick="saveForm()" class="btn btn-primary" />
+                    <input type="button" id="addnew" value="Add New" onclick="createadvisor()" class="btn btn-primary" />
+
+                </div>
+                <div class="" id="addmode">
+                    <input type="button" id="save" value="Save" onclick="saveForm()" class="btn btn-primary" />
+                    <input type="button" id="reset" value="Reset" onclick="createadvisor()" class="btn btn-primary" />
+
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </fieldset>
+        </div>
+
+    </form>
+    <div class="container" id="advisorgrid">
+       
+    </div>
+</div>
+
+<script>
+    
+    function saveForm() {
+        var form = $("#advisorform");
+        form.removeData('validator');
+        form.removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse(form);
+
+        if (form.valid()) {
+            $.ajax({
+                type: "POST",
+                url: "/Advisor/SaveForm",
+                data: form.serialize(),
+                success: function (msg) {                   
+                    loadGrid();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("some error occured while saving data");
+                }
+            });
+        }
+        evt.preventDefault();
+    }
+    function createadvisor() {
+        $("#pview").load("/Advisor/Create");
+        $("#addmode").show();
+        $("#editmode").hide();
+    }
+    function editadvisor(id) {
+        $("#pview").load("/Advisor/Edit/" + id);
+        $("#editmode").show();
+        $("#addmode").hide();
+    }
+
+    function deleteadvisor(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Advisor/Delete/"+id,            
+            success: function (msg) {
+                createadvisor();
+                loadGrid();                
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("some error occured while deleting data");
+            }
+        });
+       
+    }
+    function loadGrid() {
+        $("#advisorgrid").load("/Advisor/Grid")       
+    }
+    
+    $(document).ready(function () {
+        createadvisor();
+        loadGrid();
+    });
+</script>
+
